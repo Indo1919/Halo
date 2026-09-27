@@ -42,8 +42,9 @@
   shell.sidebar = function (r) {
     var s = H.store.state, me = q.me(), a = activeId(r), mode = s.prefs.mode, m = MODES.filter(function (x) { return x.v === mode; })[0];
     return '<aside class="sidebar' + (H.view.drawer ? ' is-open' : '') + '" id="sidebar" aria-label="Primary">' +
-      '<button class="ws" type="button" data-action="ws-menu" aria-haspopup="menu"><span class="ws-mark">' + ui.mark(18, true) + '</span>' +
-        '<span class="grow"><span class="ws-name" style="display:block">' + esc(s.workspace.name) + '</span><span class="ws-sub">Halo · ' + esc(s.workspace.plan) + '</span></span>' + H.icon('chevrons-up-down', 16, 'c-3') + '</button>' +
+      '<div class="ws-row"><button class="ws-mark ws-logo" type="button" data-action="restart-demo" data-tip="Start the demo over" aria-label="Halo. Start the demo over from the welcome page">' + ui.mark(18, true) + '</button>' +
+        '<button class="ws" type="button" data-action="ws-menu" aria-haspopup="menu">' +
+        '<span class="grow"><span class="ws-name" style="display:block">' + esc(s.workspace.name) + '</span><span class="ws-sub">Halo · ' + esc(s.workspace.plan) + '</span></span>' + H.icon('chevrons-up-down', 16, 'c-3') + '</button></div>' +
       '<div class="row gap-2" style="margin-bottom:10px">' +
         '<button class="side-search" type="button" data-action="palette" style="margin:0">' + H.icon('search', 16) + '<span>Search</span><span class="kbd">' + H.util.mod + '</span><span class="kbd" style="margin-left:2px">K</span></button>' +
         '<button class="icon-btn hide-phone" type="button" data-action="quick-add" data-tip="New" data-kbd="N" aria-label="New" style="flex:none;background:var(--surface);box-shadow:0 0 0 1px var(--border)">' + H.icon('plus', 18) + '</button>' +
@@ -108,7 +109,8 @@
       { icon: H.isDark() ? 'sun' : 'moon', text: H.isDark() ? 'Switch to light appearance' : 'Switch to dark appearance', run: function () { H.act.setPref('theme', H.isDark() ? 'light' : 'dark'); } },
       { icon: H.store.state.privacy.paused ? 'play-circle' : 'pause-circle', text: H.store.state.privacy.paused ? 'Resume Halo' : 'Pause Halo', run: function () { H.act.pause(!H.store.state.privacy.paused); } },
       { icon: 'keyboard', text: 'Keyboard shortcuts', run: function () { H.ui.open('shortcuts'); }, keys: '?' },
-      { icon: 'compass', text: 'Take the product tour', run: function () { H.tour && H.tour.start(); } }
+      { icon: 'compass', text: 'Take the product tour', run: function () { H.tour && H.tour.start(); } },
+      { icon: 'logo', text: 'Start the demo over', sub: 'Back to the welcome page', run: function () { H.dispatch('restart-demo'); } }
     ].filter(function (x) { return match(x.text); });
     var tix = H.store.state.tickets.filter(function (x) { return t && match(x.key + ' ' + x.title); }).slice(0, 6).map(function (x) {
       return { lead: H.ui.status(x.status, false), text: x.title, sub: x.key, run: function () { H.go('#/tickets/' + x.key); } };
@@ -209,6 +211,7 @@
       { icon: 'book', text: 'Help center', action: 'open', attrs: { 'data-overlay': 'help' } },
       { sep: true },
       { icon: 'dial', text: 'How trust modes work', action: 'trust-info' },
+      { icon: 'logo', text: 'Start the demo over', action: 'restart-demo' },
       { icon: 'refresh', text: 'Reset demo workspace', action: 'reset-demo' }
     ], { align: 'end', width: 240 });
   };
@@ -217,6 +220,23 @@
   A['tour'] = function () { if (H.tour) H.tour.start(); };
   A['invite'] = function () { ui.open('invite'); };
   A['sign-out'] = function () { H.store.commit(function (s) { s.session.onboarded = false; s.session.welcomeSeen = false; }); H.go('#/welcome'); };
+  // Clicking the Halo mark replays the first run: welcome, sign in, setup, then Home with the tour.
+  A['restart-demo'] = function () {
+    ui.closeMenu();
+    ui.open('confirm', { title: 'Start the demo over?', body: 'You’ll go back to the welcome page and walk through sign in and setup again. Brightwater’s sample data comes back and your changes are cleared. Your appearance settings stay.', ok: 'Start over', run: 'restart-demo-go' });
+  };
+  A['restart-demo-go'] = function () {
+    ui.close(true);
+    if (H.tour) H.tour.active = false;
+    var p = H.store.state.prefs, keep = {};
+    ['theme', 'motion', 'sound', 'ai', 'profile'].forEach(function (k) { if (p[k] !== undefined) keep[k] = p[k]; });
+    H.store.reset(false);
+    H.store.commit(function (s) { Object.keys(keep).forEach(function (k) { s.prefs[k] = keep[k]; }); }, { render: false });
+    if (H.onboarding) H.onboarding.reset();
+    H.view.drawer = false; H.view.palette = false;
+    H.go('#/welcome');
+    try { window.scrollTo(0, 0); } catch (e) { /* ignore */ }
+  };
   A['reset-demo'] = function () { ui.open('confirm', { title: 'Reset the demo workspace?', body: 'This restores Brightwater’s sample data and clears your changes. Your appearance settings stay.', ok: 'Reset workspace', danger: true, run: 'reset-demo-go' }); };
   A['reset-demo-go'] = function () { ui.close(true); H.store.reset(true); H.go('#/home'); ui.toast('Demo workspace restored', { icon: 'refresh' }); };
 

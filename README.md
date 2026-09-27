@@ -36,6 +36,8 @@ Status updates, standups and ticket grooming quietly eat hours every week. Halo 
 
 Also: command palette (`⌘K` / `Ctrl K`), quick add (`N`), keyboard navigation (`G` then a letter, `?` for all shortcuts), light and dark themes, phone layouts, reduced motion, WCAG 2.2 AA contrast.
 
+Presenting it? Click the Halo mark at the top of the sidebar to start the demo over: it restores the sample workspace and returns to the welcome page.
+
 <p>
 <img src="docs/screenshots/digest.png" width="49%" alt="Digest">
 <img src="docs/screenshots/ask.png" width="49%" alt="Ask Halo">

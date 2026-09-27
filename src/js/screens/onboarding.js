@@ -13,6 +13,12 @@
   };
   var view = { email: '', sent: false, provider: null, conn: {}, warm: 0, warmTimer: null, role: 'design', team: 'Checkout', samples: { s1: true, s2: true, s3: true } };
 
+  // Called when someone starts the demo over from the Halo mark in the sidebar.
+  H.onboarding = { reset: function () {
+    if (view.warmTimer) { clearInterval(view.warmTimer); view.warmTimer = null; }
+    view.email = ''; view.sent = false; view.provider = null; view.conn = {}; view.warm = 0;
+    view.role = 'design'; view.team = 'Checkout'; view.samples = { s1: true, s2: true, s3: true };
+  } };
   function lockup(h, dark) { return '<span class="wl-lockup" style="font-size:' + h + 'px">' + ui.mark(Math.round(h * 1.15), dark) + '<span>Halo</span></span>'; }
   function seen() { if (!H.store.state.session.welcomeSeen) H.store.commit(function (s) { s.session.welcomeSeen = true; }, { render: false }); }
   function reduced() { return matchMedia('(prefers-reduced-motion: reduce)').matches || H.store.state.prefs.motion === 'reduce'; }
@@ -254,7 +260,7 @@
       var step = STEPS.indexOf(r.parts[0]) >= 0 ? r.parts[0] : 'workspace', i = STEPS.indexOf(step);
       var last = step === 'warmup', ready = last && view.warm >= 5;
       var cta = { workspace: 'Join workspace', role: 'Continue', sources: 'Continue', trust: 'Use ' + H.store.state.prefs.mode.charAt(0).toUpperCase() + H.store.state.prefs.mode.slice(1), voice: 'Continue', boundaries: 'Continue', digest: 'Finish setup', warmup: 'Open Halo' }[step];
-      return '<div class="ob"><header class="ob-top">' + lockup(18) + '<div class="ob-prog" role="progressbar" aria-valuemin="1" aria-valuemax="' + STEPS.length + '" aria-valuenow="' + (i + 1) + '">' + STEPS.map(function (x, j) { return '<i class="' + (j < i ? 'done' : j === i ? 'now' : '') + '"></i>'; }).join('') + '</div>' +
+      return '<div class="ob"><header class="ob-top"><a href="#/welcome" data-nav="#/welcome" class="ob-home" aria-label="Halo home page">' + lockup(18) + '</a>' + '<div class="ob-prog" role="progressbar" aria-valuemin="1" aria-valuemax="' + STEPS.length + '" aria-valuenow="' + (i + 1) + '">' + STEPS.map(function (x, j) { return '<i class="' + (j < i ? 'done' : j === i ? 'now' : '') + '"></i>'; }).join('') + '</div>' +
         '<span class="t-caption c-3 nowrap">Step ' + (i + 1) + ' of ' + STEPS.length + '</span></header>' +
         '<main class="ob-main"><div class="ob-body" data-key="ob-' + step + '">' + stepBody(step) + '</div></main>' +
         '<footer class="ob-foot"><div class="ob-foot-in">' + (i > 0 && !last ? ui.btn('Back', { kind: 'ghost', icon: 'arrow-left', action: 'ob-back' }) : '<span></span>') + '<span class="grow"></span>' +

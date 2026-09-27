@@ -4,7 +4,13 @@
 
 /* Sidebar */
 .sidebar { display: flex; flex-direction: column; min-height: 0; padding: 10px 10px 10px 12px; gap: 2px; }
-.ws { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 8px; border-radius: 10px; width: 100%; text-align: left; margin-bottom: 6px; }
+.ws-row { display: flex; align-items: center; gap: 2px; margin-bottom: 6px; }
+.ws { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 8px 0 10px; border-radius: 10px; flex: 1; min-width: 0; text-align: left; }
+.ws-logo { margin-left: 8px; transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease); }
+.ws-logo svg { transition: transform 520ms var(--ease-out); }
+.ws-logo:hover { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent); }
+.ws-logo:hover svg, .ws-logo:focus-visible svg { transform: rotate(-90deg); }   /* the Signal segment winds back: start over */
+.ws-logo:active { transform: scale(0.94); }
 .ws:hover { background: color-mix(in srgb, var(--text) 5%, transparent); }
 .ws-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--brand-ink); display: grid; place-items: center; flex: none; }
 :root[data-theme="dark"] .ws-mark { background: #25282E; }
@@ -111,8 +117,9 @@
 @media (max-width: 960px) and (min-width: 761px) {
   :root { --sidebar-w: 64px; }
   .sidebar { padding: 10px 8px; align-items: center; }
-  .ws { width: 44px; padding: 0; justify-content: center; }
-  .ws > :not(.ws-mark) { display: none; }
+  .ws-row { justify-content: center; }
+  .ws-row .ws { display: none; }
+  .ws-logo { margin: 8px 0; }
   .side-search { width: 44px; justify-content: center; padding: 0; }
   .side-search > :not(.i) { display: none; }
   .nav-item { width: 44px; justify-content: center; padding: 0; }
