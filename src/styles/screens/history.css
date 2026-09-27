@@ -1,0 +1,28 @@
+/* History */
+.hs-body { margin-top: 20px; }
+.tabs .tab .key { margin-left: 2px; }
+.hs-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.hs-search { margin-left: auto; width: 220px; }
+.hs-day { margin-top: 24px; }
+.hs-day-label { font: 600 13px/18px var(--font-sans); color: var(--text-2); margin-bottom: 10px; letter-spacing: -0.003em; }
+.hs-timeline { position: relative; }
+.hs-timeline::before { content: ''; position: absolute; left: 61px; top: 8px; bottom: 8px; width: 1px; background: var(--hairline); }
+.hs-entry { display: grid; grid-template-columns: 48px 26px minmax(0, 1fr); align-items: start; padding: 6px 0; position: relative; }
+.hs-time { font: 500 12.5px/1 var(--font-sans); color: var(--text-2); text-align: right; padding-top: 16px; display: flex; flex-direction: column; gap: 3px; }
+.hs-time small { font-size: 10px; color: var(--text-3); }
+.hs-node { width: 9px; height: 9px; border-radius: 50%; background: var(--surface); box-shadow: 0 0 0 1.5px var(--border-strong); justify-self: center; margin-top: 18px; position: relative; z-index: 1; }
+.hs-card { padding: 12px 14px; border-radius: 14px; transition: background var(--dur-fast) var(--ease); display: flex; flex-direction: column; gap: 10px; }
+.hs-entry:hover .hs-card { background: var(--surface-2); }
+.hs-text { font: 400 14.5px/22px var(--font-sans); letter-spacing: -0.006em; }
+.hs-actions { display: flex; gap: 2px; opacity: 0; transition: opacity var(--dur-fast) var(--ease); }
+.hs-entry:hover .hs-actions, .hs-entry:focus-within .hs-actions { opacity: 1; }
+@media (hover: none) { .hs-actions { opacity: 1; } }
+.hs-ask { padding: 18px 20px; }
+.hs-q { font: 500 17px/25px var(--font-sans); letter-spacing: -0.012em; margin-top: 14px; }
+.hs-held { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 8px 10px 8px 12px; border-radius: 10px; background: var(--accent-tint); color: var(--accent-text); font: 500 12.5px/17px var(--font-sans); }
+@media (max-width: 760px) {
+  .hs-search { width: 100%; margin-left: 0; }
+  .hs-timeline::before { left: 45px; }
+  .hs-entry { grid-template-columns: 36px 20px minmax(0, 1fr); }
+  .hs-card { padding: 10px 8px; }
+}

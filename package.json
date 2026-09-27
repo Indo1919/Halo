@@ -1,0 +1,16 @@
+{
+  "name": "halo",
+  "private": true,
+  "description": "Halo: your work, represented. Product prototype, brand system, film and tools.",
+  "scripts": {
+    "build": "python3 tools/build.py",
+    "screens": "node tools/screens.mjs",
+    "e2e": "node tools/e2e.mjs . ./e2e-output",
+    "brand": "python3 tools/brand/tokens.py && python3 tools/brand/build_brand.py && node tools/brand/render.mjs && node tools/brand/social.mjs",
+    "brand:book": "python3 tools/brand/book.py && node tools/brand/book.mjs",
+    "film": "node tools/film/render.mjs wide film/halo-launch-film.mp4 && node tools/film/render.mjs vertical film/halo-launch-15s-vertical.mp4"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

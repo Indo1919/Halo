@@ -1,0 +1,51 @@
+/* Home */
+.home-hd { align-items: flex-end; }
+.home-hd h1 { font: 600 32px/38px var(--font-sans); letter-spacing: -0.03em; }
+.home-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; }
+.hero { padding: 20px 24px 18px; display: flex; flex-direction: column; min-height: 236px; }
+.hero-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.hero-top .kicker { color: var(--text-2); font-weight: 600; }
+.hero-text { font: 450 22px/32px var(--font-sans); letter-spacing: -0.018em; margin: 18px 0 20px; max-width: 680px; text-wrap: pretty; flex: 1; }
+.hero-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--hairline); }
+.digest-card { padding: 20px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.dc-body { margin-top: 18px; display: flex; flex-direction: column; flex: 1; }
+.dc-num { font: 600 56px/56px var(--font-sans); letter-spacing: -0.045em; }
+.dc-label { font: 600 16px/22px var(--font-sans); letter-spacing: -0.012em; margin-top: 6px; }
+.dc-meta { color: var(--text-3); font: var(--type-callout); margin-top: 4px; }
+.dc-body .mt-5 { margin-top: auto; padding-top: 20px; }
+.dc-done { width: 44px; height: 44px; border-radius: 50%; background: var(--success-tint); color: var(--success); display: grid; place-items: center; }
+.dc-ring { position: absolute; right: 20px; top: 54px; width: 44px; height: 44px; display: grid; place-items: center; }
+.dc-ring svg { position: absolute; inset: 0; }
+.dc-ring span { font: 600 10.5px/1 var(--font-mono); color: var(--text-2); }
+.ended { display: flex; align-items: center; gap: 16px; padding: 16px 20px; margin-top: 16px; box-shadow: 0 0 0 1px var(--border); }
+.ended .brand-tile { border-radius: 11px; }
+.ev-row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 8px 10px; border-radius: 10px; min-height: 52px; }
+.ev-row:hover { background: var(--surface-2); }
+.ev-time { width: 42px; flex: none; font: 500 13px/1 var(--font-sans); font-variant-numeric: tabular-nums; color: var(--text-2); text-align: right; display: flex; flex-direction: column; gap: 3px; }
+.ev-time span { font-size: 10px; color: var(--text-3); }
+.ev-bar { width: 3px; align-self: stretch; border-radius: 2px; background: var(--border-strong); flex: none; margin: 2px 0; }
+.ev-row.focus .ev-bar { background: repeating-linear-gradient(180deg, var(--text-3) 0 3px, transparent 3px 5px); }
+.ev-row.live .ev-bar { background: var(--accent); }
+.ev-title { font: 500 14px/19px var(--font-sans); letter-spacing: -0.006em; display: block; }
+.ev-meta { font: 400 12.5px/17px var(--font-sans); color: var(--text-3); display: block; }
+.ev-meta b { color: var(--accent-text); font-weight: 600; }
+.ev-row.past .ev-title, .ev-row.past .ev-time { color: var(--text-3); }
+.ev-side { flex: none; display: flex; align-items: center; }
+.tk-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 10px; border-radius: 10px; }
+.tk-row:hover { background: var(--surface-2); }
+.tk-row > .status { margin-top: 2px; }
+.tk-title { display: block; font: 500 14px/20px var(--font-sans); letter-spacing: -0.006em; margin-top: 3px; }
+.tk-row .bar { flex: 1; }
+.tk-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; min-width: 64px; }
+.cap-bar { position: relative; height: 10px; border-radius: 99px; background: var(--surface-3); overflow: hidden; }
+.cap-need { position: absolute; left: 0; top: 0; bottom: 0; background: var(--text); border-radius: 99px; }
+.cap-over { position: absolute; right: 0; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, var(--danger) 0 3px, color-mix(in srgb, var(--danger) 60%, transparent) 3px 6px); }
+@media (max-width: 1080px) { .home-grid { grid-template-columns: minmax(0, 1fr) 260px; } }
+@media (max-width: 760px) {
+  .home-grid { grid-template-columns: minmax(0, 1fr); }
+  .home-hd h1 { font-size: 26px; line-height: 32px; }
+  .hero { padding: 16px; min-height: 0; }
+  .hero-text { font-size: 18px; line-height: 27px; margin: 14px 0 16px; }
+  .ended { flex-wrap: wrap; }
+  .ended-actions { width: 100%; justify-content: flex-end; }
+}

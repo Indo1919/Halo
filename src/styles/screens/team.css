@@ -1,0 +1,31 @@
+/* Team */
+.tm-pulse { display: flex; align-items: center; gap: 24px; padding: 18px 22px; flex-wrap: wrap; position: relative; }
+.tm-pulse-item { display: flex; align-items: flex-start; gap: 10px; min-width: 110px; }
+.tm-pulse-item .status { margin-top: 9px; }
+.tm-pulse-item .stat-num { font-size: 26px; line-height: 30px; }
+.tm-pulse-note { margin-left: auto; font: 400 12px/16px var(--font-sans); color: var(--text-3); display: inline-flex; align-items: center; gap: 6px; }
+.tm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.tm-card { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.tm-name { font: 600 15px/20px var(--font-sans); letter-spacing: -0.01em; display: block; }
+.tm-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+.tm-status { font: 400 14px/21px var(--font-sans); color: var(--text); flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.tm-block { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 9px; background: var(--danger-tint); color: var(--danger); font: 500 12.5px/17px var(--font-sans); }
+.tm-block .i { margin-top: 1px; flex: none; }
+.tm-foot { display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--hairline); }
+.tm-help { display: flex; align-items: center; gap: 14px; padding: 14px 18px; }
+.tm-hero { display: flex; align-items: center; gap: 20px; padding: 24px; }
+.tm-ask { display: flex; gap: 8px; margin-top: 12px; }
+.tm-ask .input { flex: 1; }
+.tm-upd { display: flex; gap: 14px; padding: 14px 18px; }
+.tm-upd + .tm-upd { border-top: 1px solid var(--hairline); }
+.tm-upd p { font: 400 14px/21px var(--font-sans); }
+.tm-upd-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border-strong); margin-top: 7px; flex: none; }
+.tm-upd:first-child .tm-upd-dot { background: var(--accent); }
+@media (max-width: 760px) {
+  .tm-grid { grid-template-columns: minmax(0, 1fr); }
+  .tm-pulse { gap: 14px; }
+  .tm-pulse .vdivider { display: none; }
+  .tm-pulse-note { margin-left: 0; width: 100%; }
+  .tm-hero { flex-direction: column; align-items: flex-start; padding: 18px; }
+  .tm-help { flex-wrap: wrap; }
+}

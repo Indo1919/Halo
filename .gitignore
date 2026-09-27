@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+worker/.wrangler/
+*.log
+dist/
+__pycache__/
+e2e-output/

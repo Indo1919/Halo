@@ -1,0 +1,13 @@
+name = "halo-ai"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+# Sites allowed to call the proxy (comma separated, exact origins, no trailing slash).
+ALLOWED_ORIGINS = "https://indo1919.github.io,http://localhost:8080"
+# Models the site may request. The first one is the default.
+MODELS = "claude-haiku-4-5-20251001,claude-sonnet-5"
+MAX_TOKENS = "1024"
+RATE_PER_MIN = "20"
+
+# The API key is a secret, never a var:  npx wrangler secret put ANTHROPIC_API_KEY

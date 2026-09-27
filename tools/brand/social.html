@@ -1,0 +1,37 @@
+<!doctype html><meta charset=utf-8><style>
+@font-face{font-family:Geist;src:url(../../assets/fonts/Geist-Variable-latin.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:'Geist Mono';src:url(../../assets/fonts/GeistMono-Variable-latin.woff2) format('woff2');font-weight:100 900}
+*{box-sizing:border-box;margin:0}
+body{background:transparent;font-family:Geist;-webkit-font-smoothing:antialiased}
+.frame{position:relative;overflow:hidden;background:#0F1114;color:#F2F2EF}
+#og{width:1200px;height:630px;padding:72px 80px}
+#banner{width:1500px;height:500px;padding:0 96px;display:flex;align-items:center}
+#avatar{width:400px;height:400px;display:grid;place-items:center;background:#0A0A0A}
+.lock{height:44px;display:block}
+h1{font-weight:600;font-size:76px;line-height:80px;letter-spacing:-0.045em;margin-top:118px}
+p{font-size:24px;line-height:34px;letter-spacing:-0.01em;color:#B8B9B5;margin-top:22px;max-width:620px}
+.url{position:absolute;left:80px;bottom:64px;font:500 18px 'Geist Mono';color:#9B9C98;letter-spacing:0}
+.url b{color:#FF6A38;font-weight:500}
+.ring{position:absolute}
+.tag{display:inline-flex;align-items:center;gap:10px;font:500 15px 'Geist Mono';color:#9B9C98;margin-top:0}
+.sq{width:9px;height:9px;background:#FF4405;display:inline-block}
+</style>
+<div id=og class=frame>
+  <img class=lock src="../../brand/logo/lockup/halo-lockup-horizontal-reversed.svg">
+  <h1>Your work,<br>represented.</h1>
+  <p>Halo turns the signal you already create into updates in your own voice.</p>
+  <div class=url>myhalo.co</div>
+  <svg class=ring style="right:-170px;top:95px" width=560 height=560 viewBox="0 0 100 100">
+    <path id=r1 fill="#1B1E23"/><path id=s1 fill="#FF4405"/></svg>
+</div>
+<div style="height:20px"></div>
+<div id=banner class=frame>
+  <div><img class=lock src="../../brand/logo/lockup/halo-lockup-horizontal-reversed.svg" style="height:40px">
+  <div style="font-weight:600;font-size:54px;line-height:60px;letter-spacing:-0.04em;margin-top:34px">Your work, represented.</div>
+  <div class=tag style="margin-top:18px"><span class=sq></span>myhalo.co</div></div>
+  <svg class=ring style="right:80px;top:-120px" width=740 height=740 viewBox="0 0 100 100"><path id=r2 fill="#1B1E23"/><path id=s2 fill="#FF4405"/></svg>
+</div>
+<div style="height:20px"></div>
+<div id=avatar class=frame><img src="../../brand/logo/mark/halo-mark-reversed.svg" style="width:200px;height:200px"></div>
+<script src="ring-paths.js"></script>
+<script>for(const i of [1,2]){document.getElementById('r'+i).setAttribute('d',RING.ring);document.getElementById('s'+i).setAttribute('d',RING.seg)}</script>
