@@ -32,7 +32,7 @@ Status updates, standups and ticket grooming quietly eat hours every week. Halo 
 | Meeting recap | Summary, decisions and action items, then a drafted ticket with estimated, assignable subtasks |
 | Team and History | Teammates’ published updates only, every update you shared, every question answered about you |
 | Sources, Voice and privacy, Settings | Connector consent flow, voice fingerprint, private topics, audience visibility matrix, AI provider settings |
-| First run | Marketing site, sign in, eight-step onboarding and a product tour |
+| First run | Marketing site with a 36-second explainer that plays on its own, sign in, eight-step onboarding and a product tour |
 
 Also: command palette (`⌘K` / `Ctrl K`), quick add (`N`), keyboard navigation (`G` then a letter, `?` for all shortcuts), light and dark themes, phone layouts, reduced motion, WCAG 2.2 AA contrast.
 
@@ -67,9 +67,13 @@ The full identity lives in [`brand/`](brand): the mark (a precise ring with one 
 
 ## Film
 
+The welcome page explains Halo without asking anyone to press play. Under the headline, a silent 36-second explainer runs on its own in six chapters (signal, update, altitude, digest, ask, plan). It is drawn live with the product’s own components, so it stays sharp at any size and costs no download. It pauses when it scrolls out of view, shows a still frame to people who prefer reduced motion, and always has a pause control.
+
+![The welcome explainer](docs/screenshots/welcome-explainer.png)
+
 [![Halo launch film](film/halo-film-poster.jpg)](film/halo-launch-film.mp4)
 
-`film/halo-launch-film.mp4` is the 84-second 16:9 launch film and `film/halo-launch-15s-vertical.mp4` is the 15-second 9:16 cut. Both are rendered frame by frame from `film/src/`, using the product’s own components.
+`film/halo-launch-film.mp4` is the 84-second 16:9 launch film and `film/halo-launch-15s-vertical.mp4` is the 15-second 9:16 cut, both rendered frame by frame from `film/src/`. `film/halo-explainer-loop.mp4` is the welcome explainer exported as a seamless 1080p loop for social posts and portfolios.
 
 ## Project structure
 
@@ -78,7 +82,7 @@ index.html              Built, self-contained app (what GitHub Pages serves)
 halo.config.js          Optional live AI proxy URL
 src/                    App source: styles/ and js/ (core, shell, screens)
 brand/                  Logo system, tokens, icons, social images, guidelines (HTML + PDF)
-film/                   Launch film, vertical cut, poster, and the film source
+film/                   Launch film, vertical cut, explainer loop, posters, and the film source
 worker/                 Cloudflare Worker that proxies Claude without exposing a key
 tools/                  Build, screenshots, end-to-end walkthrough, brand and film renderers
 docs/screenshots/       Images used in this README

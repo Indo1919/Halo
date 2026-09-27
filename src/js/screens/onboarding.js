@@ -11,29 +11,13 @@
     manager: 'Checkout v3 design is moving: payment methods in hi-fi, wallet placement in review. One risk: the selector slips a day.',
     exec: 'Checkout v3 design is on track for October.'
   };
-  var view = { aud: 'team', timer: null, email: '', sent: false, provider: null, conn: {}, warm: 0, warmTimer: null, role: 'design', team: 'Checkout', samples: { s1: true, s2: true, s3: true } };
+  var view = { email: '', sent: false, provider: null, conn: {}, warm: 0, warmTimer: null, role: 'design', team: 'Checkout', samples: { s1: true, s2: true, s3: true } };
 
   function lockup(h, dark) { return '<span class="wl-lockup" style="font-size:' + h + 'px">' + ui.mark(Math.round(h * 1.15), dark) + '<span>Halo</span></span>'; }
   function seen() { if (!H.store.state.session.welcomeSeen) H.store.commit(function (s) { s.session.welcomeSeen = true; }, { render: false }); }
   function reduced() { return matchMedia('(prefers-reduced-motion: reduce)').matches || H.store.state.prefs.motion === 'reduce'; }
 
   /* ---------------- Welcome ---------------- */
-  function stage() {
-    var a = view.aud;
-    return '<div class="wl-stage" aria-label="Halo, shown with sample data" role="img">' +
-      '<div class="wl-win"><div class="wl-win-bar"><i></i><i></i><i></i><span>myhalo.co</span></div>' +
-      '<div class="wl-win-body">' +
-        '<div class="wl-status card"><div class="row gap-2 wrap"><span class="kicker">' + ui.mark(14) + '<span>What Halo is saying about you</span></span><span class="ml-auto">' + ui.seg('wl-aud', AUD, a, { action: 'wl-aud', size: 'sm' }) + '</span></div>' +
-          '<p class="wl-status-text" data-key="wl-' + a + '">' + esc(LINES[a]) + '</p>' +
-          '<div class="row gap-2 wrap">' + ui.src('figma', 'Payment methods') + ui.src('jira', 'CHK-142') + ui.src('zoom', 'Kickoff') + '<span class="redacted-chip"><span class="bars"><i></i><i></i></span>Redacted: 1 private topic</span></div></div>' +
-        '<div class="wl-side">' +
-          '<div class="card wl-mini"><div class="eyebrow">Today’s digest</div><div class="wl-num">4</div><div class="t-callout c-2">updates need you. 8 shared themselves.</div><div class="btn btn-primary btn-sm btn-block mt-4" aria-hidden="true">Review now</div></div>' +
-          '<div class="card wl-mini"><div class="row gap-2"><span class="eyebrow">Trust mode</span><strong class="ml-auto t-callout">Balanced</strong></div><div class="wl-dial">' + H.shell.dial(1, 52) + '<div class="wl-dial-stops"><span>Curated</span><b>Balanced</b><span>Ambient</span></div></div></div>' +
-        '</div>' +
-        '<div class="wl-flow">' + ['gcal', 'slack', 'figma', 'github', 'jira', 'zoom'].map(function (id, i) { return '<span class="wl-flow-tile" style="--d:' + (i * 90) + 'ms">' + H.brandTile(id, 40) + '</span>'; }).join('') +
-          '<span class="wl-flow-line"></span><span class="wl-flow-ring">' + ui.mark(30) + '</span></div>' +
-      '</div></div></div>';
-  }
   function welcome() {
     var sec = function (id, cls, body) { return '<section id="' + id + '" class="wl-sec ' + (cls || '') + '"><div class="wl-wrap">' + body + '</div></section>'; };
     var steps = [
@@ -55,9 +39,10 @@
         '<span class="wl-pill"><span class="dot dot-accent"></span>Now in early access</span>' +
         '<h1 class="wl-h1">Your work,<br>represented.</h1>' +
         '<p class="wl-sub">Halo turns the signal you already create, like meetings, commits and design edits, into status updates in your own voice. You\u2019ll never write another one.</p>' +
-        '<div class="wl-ctas">' + ui.btn('Get started', { kind: 'accent', size: 'xl', action: 'wl-start', trail: H.icon('arrow-right', 18) }) + ui.btn('Watch the film', { size: 'xl', icon: 'play-circle', action: 'wl-film' }) + '</div>' +
+        '<div class="wl-ctas">' + ui.btn('Get started', { kind: 'accent', size: 'xl', action: 'wl-start', trail: H.icon('arrow-right', 18) }) + '</div>' +
         '<p class="wl-fine">Works with Google Calendar, Slack, Figma, GitHub, Jira and Zoom.</p>' +
-        stage() + '</div></section>' +
+        // Plays on its own, like a muted hero video. Managed by H.explainer, so the morph leaves it alone.
+        '<div class="wl-ex" id="wl-ex" data-morph="skip" role="region" aria-label="How Halo works, in 36 seconds"></div></div></section>' +
       sec('how', '', '<div class="wl-sec-hd"><span class="eyebrow">How it works</span><h2>Status that writes itself.<br><span class="c-3">Sharing you control.</span></h2></div>' +
         '<div class="wl-steps">' + steps.map(function (s, i) { return '<div class="wl-step"><span class="wl-step-n">0' + (i + 1) + '</span><span class="wl-step-ic">' + H.icon(s[0], 22) + '</span><h3>' + esc(s[1]) + '</h3><p>' + esc(s[2]) + '</p></div>'; }).join('') + '</div>') +
       sec('altitude', 'wl-alt', '<div class="wl-alt-grid"><div><span class="eyebrow">Same truth, right altitude</span><h2>One update.<br>Three audiences.</h2><p class="wl-p">Your teammate needs the detail. Your manager needs the risk. Your VP needs one sentence. Halo writes each one from the same facts, in your voice.</p></div>' +
@@ -68,23 +53,15 @@
       '<footer class="wl-foot"><div class="wl-wrap row gap-4 wrap">' + lockup(16) + '<span class="c-3">© 2026 Halo · myhalo.co</span><span class="grow"></span><button type="button" class="link-quiet" data-action="wl-legal" data-v="privacy">Privacy</button><button type="button" class="link-quiet" data-action="wl-legal" data-v="terms">Terms</button><button type="button" class="link-quiet" data-action="wl-legal" data-v="security">Security</button></div></footer>' +
     '</div>';
   }
-  function startCycle() {
-    stopCycle(); if (reduced()) return;
-    view.timer = setInterval(function () {
-      if (H.route.name !== 'welcome' || document.hidden) return;
-      var order = ['team', 'manager', 'exec']; view.aud = order[(order.indexOf(view.aud) + 1) % 3]; H.render();
-    }, 3200);
-  }
-  function stopCycle() { if (view.timer) { clearInterval(view.timer); view.timer = null; } }
+  var FILM_LINK = function () { return '<button type="button" class="ex-film" data-action="wl-film">' + H.icon('play-circle', 16) + '<span>Watch the full film</span><span class="ex-film-t">1:24</span></button>'; };
 
   H.screens.welcome = {
     title: 'Halo', fullscreen: true, public: true, docTitle: function () { return 'Halo · Your work, represented.'; },
     render: welcome,
-    after: function () { if (!view.timer) startCycle(); },
-    leave: stopCycle,
+    after: function () { var host = document.getElementById('wl-ex'); if (host && H.explainer) H.explainer.mount(host, { reduced: reduced(), extra: FILM_LINK() }); },
+    leave: function () { if (H.explainer) H.explainer.destroy(); },
     actions: {
-      'wl-start': function () { seen(); stopCycle(); H.go('#/signin'); },
-      'wl-aud': function (el) { view.aud = el.dataset.v; startCycle(); H.render(); },
+      'wl-start': function () { seen(); H.go('#/signin'); },
       'wl-scroll': function (el) { var t = document.getElementById(el.dataset.to); if (t) t.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' }); },
       'wl-film': function () { ui.open('film'); },
       'wl-legal': function (el) { ui.open('legal', { v: el.dataset.v }); }
@@ -94,7 +71,7 @@
   H.overlays.film = {
     kind: 'modal', size: 'wide', title: 'The Halo film',
     render: function () {
-      return '<div class="modal-hd"><div class="grow"><h2>Meet Halo</h2><p>A 90-second look at what Halo does and why.</p></div>' + ui.iconBtn('x', 'Close', 'close') + '</div>' +
+      return '<div class="modal-hd"><div class="grow"><h2>Meet Halo</h2><p>The full story in a minute and a half: why Halo exists and what it does.</p></div>' + ui.iconBtn('x', 'Close', 'close') + '</div>' +
         '<div class="modal-bd"><div class="film-frame"><video id="film-v" controls playsinline preload="metadata" poster="' + BASE + 'film/halo-film-poster.jpg"><source src="' + BASE + 'film/halo-launch-film.mp4" type="video/mp4"></video>' +
         '<div class="film-missing" hidden>' + ui.mark(28, true) + '<p>The film plays from the <b>film</b> folder next to this app. Open it from the project to watch.</p></div></div></div>';
     },

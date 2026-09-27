@@ -49,4 +49,7 @@ so the workspace reads coherently on any day it is opened.
 - Brand system: `tools/brand/` regenerates logos, icons, tokens, social images and the guidelines PDF.
 - Film: `film/src/film.html` is a deterministic timeline; `node tools/film/render.mjs wide film/halo-launch-film.mp4`
   renders it with ffmpeg.
+- Welcome explainer: `src/js/screens/explainer.js` is one deterministic timeline (`H.explainer.seek(t)`) with a wide and a
+  tall composition. `node tools/explainer-qa.mjs <outDir>` captures its key frames; `node tools/film/explainer.mjs`
+  exports it as `film/halo-explainer-loop.mp4`.
 - Live AI proxy: see `worker/README.md`.
